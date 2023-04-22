@@ -1,0 +1,52 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .grid-header {
+    display: flex;
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+  
+  .grid-cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .grid-body {
+    flex: 1;
+    overflow-y: scroll;
+  }
+  
+  .grid-row {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .grid-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .grid-pagination {
+    display: flex;
+  }
+  
+  .grid-page-btn {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .grid-page-btn:hover {
+    background-color: #ddd;
+  }  

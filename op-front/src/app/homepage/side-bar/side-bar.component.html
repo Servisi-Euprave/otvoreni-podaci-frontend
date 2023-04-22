@@ -1,0 +1,49 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button
+      mat-icon-button
+      *ngIf="sidenav.mode === 'over'"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    </button>
+</mat-toolbar>
+  
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+        <img
+        class="avatar mat-elevation-z8"
+        src="https://www.stat.gov.rs/media/5792/op2.png?width=229&height=207"
+        alt="Slika"
+        />
+
+        <h3 class="name">Otvoreni podaci</h3>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button" routerLink="preduzece">
+        <mat-icon>account_balance</mat-icon>
+        <span>Preduzece</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="javne_nabavke">
+        <mat-icon>local_atm</mat-icon>
+        <span>Javne nabavke</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="about">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button" routerLink="">
+        <mat-icon>home</mat-icon>
+        <span>Pocetna strana</span>
+        </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
