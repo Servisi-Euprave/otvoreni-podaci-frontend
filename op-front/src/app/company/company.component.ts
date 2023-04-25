@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
@@ -19,10 +20,22 @@ export class CompanyComponent implements AfterViewInit  {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  @ViewChild(MatSort)
+  sort!: MatSort;
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
-  
+
+  FilterChange(event: Event){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue;
+  }
+
+  getRow(row: any){
+    alert(row.name);
+  }
 }
 
 export interface PeriodicElement {
@@ -52,5 +65,5 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
   {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
   {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
+  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'}
 ];

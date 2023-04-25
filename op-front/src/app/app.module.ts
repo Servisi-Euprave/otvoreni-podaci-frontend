@@ -15,6 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { CompanyComponent } from './company/company.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatDividerModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
