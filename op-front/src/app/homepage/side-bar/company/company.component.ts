@@ -6,6 +6,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { PopupComponent } from '../../../popup/popup.component';
 import { Company } from 'src/app/model/Company';
 import { Delatnost } from 'src/app/model/Delatnost';
+import { CompanyService } from 'src/app/service/company.service';
 
 @Component({
   selector: 'app-company',
@@ -14,12 +15,16 @@ import { Delatnost } from 'src/app/model/Delatnost';
 })
 export class CompanyComponent implements AfterViewInit  {
 
-  constructor(private matdialog: MatDialog) { }
+  companies: Company[] = [];
+
+  constructor(private matdialog: MatDialog, private service: CompanyService) { }
 
   ngOnInit(): void {
+    this.getAllCompanies();
   }
-  displayedColumns: string[] = ['naziv', 'adresaSedista', 'delatnost', 'likvidirana'];
-  dataSource = new MatTableDataSource<Company>(company_list);
+
+  displayedColumns: string[] = ['naziv', 'adresaSedista', 'delatnost', 'vlasnik'];
+  dataSource = new MatTableDataSource<Company>(this.companies);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -41,16 +46,19 @@ export class CompanyComponent implements AfterViewInit  {
     console.log(row)
     this.matdialog.open(PopupComponent, {width: '60%', height: '30%',
       data:{
-        PIB: row.PIB,
+        pib: row.pib,
         naziv: row.naziv,
         
       }});
   }
-}
 
-const company_list: Company[] = [
-  {vlasnik: 123, PIB: 105108377, naziv: 'Hobotnica', adresaSedista: 'Limanska pijaca', mesto: 'Novi Sad', postanskiBroj: '2100', delatnost:  Delatnost.OPSTE_JAVNE_USLUGE, sediste: 'Novi Sad', password: 'lmao', likvidirana: false },
-  {vlasnik: 456, PIB: 273013098, naziv: 'Mikromarket', adresaSedista: 'Seljackih buna 93', mesto: 'Novi Sad', postanskiBroj: '2100', delatnost:  Delatnost.OPSTE_JAVNE_USLUGE, sediste: 'Novi Sad', password: 'lmao', likvidirana: true },
-  {vlasnik: 789, PIB: 649728071, naziv: 'Apoteka Jankovic', adresaSedista: 'Mileve Maric 23', mesto: 'Novi Sad', postanskiBroj: '2100', delatnost:  Delatnost.ZDRAVSTVO, sediste: 'Novi Sad', password: 'lmao', likvidirana: false },
-  {vlasnik: 987, PIB: 129536494, naziv: 'Prva vojvodjanska brigada', adresaSedista: 'Seljackih buna 33', mesto: 'Novi Sad', postanskiBroj: '2100', delatnost:  Delatnost.EDUKACIJA, sediste: 'Novi Sad', password: 'lmao', likvidirana: false },
-];
+  getAllCompanies(){
+    this.service.getAll().subscribe({
+      next: (c) => {this.companies = c; 
+        this.dataSource = new MatTableDataSource<Company>(this.companies);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    })
+  }
+}
