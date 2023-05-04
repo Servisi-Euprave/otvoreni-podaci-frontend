@@ -10,8 +10,7 @@ RUN npm install
 RUN npm install -g @angular/cli@15.2.6
 
 COPY ./src ./src
-COPY ./tsconfig.spec.json ./tsconfig.app.json ./tsconfig.json 
-./angular.json  ./
+COPY ./tsconfig.spec.json ./tsconfig.app.json ./tsconfig.json ./angular.json  ./
 
 
 # start app
