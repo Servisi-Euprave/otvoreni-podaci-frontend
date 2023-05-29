@@ -56,23 +56,20 @@ export class CompanyComponent implements AfterViewInit  {
 
   OpenPopup(row: any){
     console.log(row)
-    this.matdialog.open(PopupComponent, {width: '60%', height: '30%',
+    this.matdialog.open(PopupComponent, {width: '33%', height: '52%',
       data:{
         pib: row.pib,
         naziv: row.naziv,
-        
+        adresaSedista: row.adresaSedista,
+        delatnost: row.delatnost,
+        mesto: row.mesto,
+        postanskiBroj: row.postanskiBroj,
+        sediste : row.sediste.naziv,
+        oznaka: row.sediste.oznaka,
+        vlasnikIme: row.vlasnik.name,
+        vlasnikPrezime : row.vlasnik.lastname
       }});
   }
-
-  // getAllCompanies(){
-  //   this.service.getAll().subscribe({
-  //     next: (c) => {this.companies = c; 
-  //       this.dataSource = new MatTableDataSource<Company>(this.companies);
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  //     }
-  //   })
-  // }
 
   filterOrderForm = new FormGroup({
     asc: new FormControl(null),

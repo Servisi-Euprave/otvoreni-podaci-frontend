@@ -55,25 +55,21 @@
     </mat-form-field>
     <table mat-table matSort [dataSource]="dataSource">
   
-      <!-- Position Column -->
       <ng-container matColumnDef="naziv">
         <th mat-header-cell mat-sort-header *matHeaderCellDef> Naziv </th>
         <td mat-cell *matCellDef="let company"> {{company.naziv}} </td>
       </ng-container>
   
-      <!-- Name Column -->
       <ng-container matColumnDef="adresaSedista">
         <th mat-header-cell mat-sort-header *matHeaderCellDef> Adresa sedista </th>
         <td mat-cell *matCellDef="let company"> {{company.adresaSedista}} </td>
       </ng-container>
   
-      <!-- Weight Column -->
       <ng-container matColumnDef="delatnost">
         <th mat-header-cell mat-sort-header *matHeaderCellDef> Delatnost </th>
         <td mat-cell *matCellDef="let company"> {{company.delatnost}} </td>
       </ng-container>
   
-      <!-- Symbol Column -->
       <ng-container matColumnDef="vlasnik">
         <th mat-header-cell *matHeaderCellDef> Vlasnik </th>
         <td mat-cell *matCellDef="let company"> {{company.vlasnik.name + " " + company.vlasnik.lastname }}</td>

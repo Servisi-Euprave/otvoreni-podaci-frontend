@@ -1,12 +1,18 @@
-<h1 mat-dialog-title>{{result.naziv}} - {{result.pib}}</h1>
-<!-- <div mat-dialog-content>
-  <p>What's your Tech?</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Favorite Tech</mat-label>
-    <input matInput >
-  </mat-form-field>
-</div> -->
+<div mat-dialog-content id="companyInfo" #companyInfo>
+  <h2>Informacije o preduzeću</h2>
+  <p>
+    <b> Vlasnik: </b> {{result.vlasnikIme}} {{result.vlasnikPrezime}} <br>
+    <b> Naziv: </b> {{result.naziv}} <br>
+    <b> PIB: </b> {{result.pib}} <br>
+    <b> Adresa sedišta: </b> {{result.adresaSedista}}<br>
+    <b> Delatnost: </b> {{result.delatnost}}<br>
+    <b> Grad: </b> {{result.mesto}}<br>
+    <b> Poštanski broj: </b> {{result.postanskiBroj}}<br>
+    <b> Oblast: </b> {{result.sediste}}<br>
+    <b> Oznaka: </b> {{result.oznaka}}<br>
+  </p>
+</div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" >OK</button>
-  <button mat-raised-button color="warn" (click)="close()" >Close</button>
+  <button mat-raised-button color="primary" (click)="downloadAsTextFile()">Preuzmi</button>
+  <button mat-raised-button color="warn" (click)="close()">Zatvori</button>
 </div>
