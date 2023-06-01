@@ -19,7 +19,7 @@ export class NabavkaPopUpComponent implements OnInit {
   }
   
   downloadAsTextFile() {
-    this.modalContent = document.getElementById('companyInfo')?.innerText;
+    this.modalContent = document.getElementById('nabavkaInfo')?.innerText;
     const filename = `${this.result.id}.txt`;
     if (this.modalContent !== undefined) {
       const blob = new Blob([this.modalContent], { type: "text/plain" });
