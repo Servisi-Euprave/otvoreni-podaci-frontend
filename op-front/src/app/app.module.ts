@@ -23,6 +23,8 @@ import { PopupComponent } from './popup/popup.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NabavkaComponent } from './homepage/side-bar/nabavka/nabavka.component';
+import { NabavkaPopUpComponent } from './popup/nabavka-pop-up/nabavka-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SideBarComponent,
     CompanyComponent,
     PopupComponent,
+    NabavkaComponent,
+    NabavkaPopUpComponent,
   ],
   imports: [
     BrowserModule,

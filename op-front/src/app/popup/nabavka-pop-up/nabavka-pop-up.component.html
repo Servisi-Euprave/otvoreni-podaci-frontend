@@ -1,0 +1,16 @@
+<div mat-dialog-content id="companyInfo" #companyInfo>
+    <h2>Informacije o nabavci</h2>
+    <p>
+      <b> Id nabavke: </b> {{result.id}} <br>
+      <b> Potraživač: </b> {{result.potrazivac}} <br>
+      <b> Datum izdavanja nabavke: </b> {{result.pocetak}} <br>
+      <b> Rok za zaključenje nabavke: </b> {{result.kraj}}<br>
+      <b> Ime nabavke: </b> {{result.ime}}<br>
+      <b> Opis nabavke: </b> {{result.opis}}<br>
+      <b> Kompanija zadužena za nabavku: </b> {{result.pobednik}}<br>
+    </p>
+  </div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="downloadAsTextFile()">Preuzmi</button>
+  <button mat-raised-button color="warn" (click)="close()">Zatvori</button>
+</div>

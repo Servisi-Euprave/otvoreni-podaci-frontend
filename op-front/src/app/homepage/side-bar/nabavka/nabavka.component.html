@@ -1,0 +1,34 @@
+<div class="mat-elevation-z8">
+    <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput placeholder="Search columns" (keyup)="FilterChange($event)">
+    </mat-form-field>
+    <table mat-table matSort [dataSource]="dataSource">
+
+    <ng-container matColumnDef="potrazivac">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Potraživač </th>
+        <td mat-cell *matCellDef="let nabavke"> {{nabavke.procuring_entity_pi_b}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="periodNabavke">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Period nabavke </th>
+        <td mat-cell *matCellDef="let nabavke"> {{nabavke.start_date + " - " + nabavke.end_date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="imeNabavke">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Ime nabavke </th>
+        <td mat-cell *matCellDef="let nabavke"> {{nabavke.procurement_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="opis">
+        <th mat-header-cell *matHeaderCellDef> Opis </th>
+        <td mat-cell *matCellDef="let nabavke"> {{nabavke.description}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row get (click)="OpenPopup(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[50]"
+                showFirstLastButtons>
+    </mat-paginator>
+</div>
