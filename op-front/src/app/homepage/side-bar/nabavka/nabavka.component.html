@@ -12,7 +12,7 @@
 
     <ng-container matColumnDef="periodNabavke">
         <th mat-header-cell mat-sort-header *matHeaderCellDef> Period nabavke </th>
-        <td mat-cell *matCellDef="let nabavke"> {{nabavke.start_date + " - " + nabavke.end_date}} </td>
+        <td mat-cell *matCellDef="let nabavke"> {{nabavke.start_date | date:"hh:mm dd.MM.yyyy"}} - {{nabavke.end_date | date:"hh:mm dd.MM.yyyy"}} </td>
     </ng-container>
 
     <ng-container matColumnDef="imeNabavke">
