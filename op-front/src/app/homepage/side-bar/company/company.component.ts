@@ -16,8 +16,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class CompanyComponent implements AfterViewInit  {
 
-  // companies: Company[] = [];
-
   private _companies: Company[] = [];
   public get companies(): Company[] {
     return this._companies;
@@ -30,7 +28,6 @@ export class CompanyComponent implements AfterViewInit  {
   constructor(private matdialog: MatDialog, private service: CompanyService) { }
 
   ngOnInit(): void {
-    // this.getAllCompanies();
     this._loading = true;
     this.refreshPage();
   }
@@ -140,4 +137,66 @@ export class CompanyComponent implements AfterViewInit  {
     this._page = 0;
     this.refreshPage();
   }
+
+  downloadAsTextFile() {
+    const headers = [
+      'Ime vlasnika',
+      'Prezime vlasnika',
+      'PIB',
+      'Naziv',
+      'Adresa Sedista',
+      'Mesto',
+      'Postanski Broj',
+      'Delatnost',
+      'Oznaka sedista',
+      'Naziv sedista'
+    ];
+  
+    const columnWidths = [15, 15, 6, 30, 25, 15, 14, 30, 14, 30];
+  
+    const formatColumn = (value: string, width: number) => {
+      const truncatedValue = value.substring(0, width);
+      const paddedValue = truncatedValue.padEnd(width, ' ');
+      return paddedValue;
+    };
+  
+    const headerRow = headers.map((header, index) => formatColumn(header, columnWidths[index])).join(' | ');
+  
+    const content = [
+      headerRow,
+      '-'.repeat(headerRow.length),
+      ...this.dataSource.data.map((company: Company) => {
+        const vlasnikName = company.vlasnik ? company.vlasnik.name : '';
+        const vlasnikLastname = company.vlasnik ? company.vlasnik.lastname : '';
+        const row = [
+          vlasnikName,
+          vlasnikLastname,
+          company.pib.toString(),
+          company.naziv,
+          company.adresaSedista,
+          company.mesto,
+          company.postanskiBroj,
+          company.delatnost,
+          company.sediste ? company.sediste.oznaka : '',
+          company.sediste ? company.sediste.naziv : ''
+        ];
+  
+        return row
+          .map((field, index) => formatColumn(field.toString(), columnWidths[index]))
+          .join(' | ');
+      })
+    ].join('\n');
+  
+    const filename = 'table_content.txt';
+    if (content !== '') {
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    }
+  }
+
 }

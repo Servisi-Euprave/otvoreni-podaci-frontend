@@ -15,9 +15,11 @@ import { NabavkaService } from 'src/app/service/nabavka.service';
 export class NabavkaComponent implements AfterViewInit {
 
   private _nabavke: Nabavka[] = [];
+
   public get nabavke(): Nabavka[] {
     return this._nabavke;
   }
+
   constructor(private service : NabavkaService, private matdialog: MatDialog) { }
 
   displayedColumns: string[] = ['potrazivac', 'periodNabavke', 'imeNabavke', 'opis'];
@@ -50,6 +52,64 @@ export class NabavkaComponent implements AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  downloadAsTextFile() {
+    const headers = [
+      'ID',
+      'Potraživač',
+      'ID nabavke',
+      'Datum izdavanja nabavke',
+      'Rok za zaključenje',
+      'Ime nabavke',
+      'Opis nabavke',
+      'Pobednik ID'
+    ];
+  
+    const columnWidths = [36, 10, 25, 25, 25, 25, 25, 36];
+  
+    const formatColumn = (value: string, width: number) => {
+      const truncatedValue = value.substring(0, width);
+      const paddedValue = truncatedValue.padEnd(width, ' ');
+      return paddedValue;
+    };
+  
+    const headerRow = headers.map((header, index) => formatColumn(header, columnWidths[index])).join(' | ');
+  
+    const content = [
+      headerRow,
+      '-'.repeat(headerRow.length),
+      ...this.dataSource.data.map((nabavka: Nabavka) => {
+        const startDate = nabavka.start_date;
+        const endDate = nabavka.end_date || '';
+  
+        const row = [
+          nabavka.id,
+          nabavka.procuring_entity_pi_b,
+          nabavka.procurement_plan_id,
+          startDate,
+          endDate,
+          nabavka.procurement_name,
+          nabavka.description,
+          nabavka.winner_id
+        ];
+  
+        return row
+          .map((field, index) => formatColumn(field.toString(), columnWidths[index]))
+          .join(' | ');
+      })
+    ].join('\n');
+  
+    const filename = 'table_content.txt';
+    if (content !== '') {
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    }
   }
 
   
