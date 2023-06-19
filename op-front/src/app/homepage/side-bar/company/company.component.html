@@ -51,7 +51,7 @@
   </form>
   <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
-    <input matInput placeholder="Search columns" (keyup)="FilterChange($event)">
+    <input matInput placeholder="Search columns" #box (keyup.enter)="onEnter(box.value)">
   </mat-form-field>
   <table mat-table matSort [dataSource]="dataSource">
 
@@ -82,6 +82,6 @@
   <mat-paginator [pageSizeOptions]="[50]"
                   showFirstLastButtons>
   </mat-paginator>
-  <button (click)="downloadAsTextFile()">Preuzmi kao txt fajl</button>
+  <button (click)="downloadAsTextFile(box.value)">Preuzmi kao txt fajl</button>
 </div>
   

@@ -46,11 +46,6 @@ export class CompanyComponent implements AfterViewInit  {
     this.dataSource.sort = this.sort;
   }
 
-  FilterChange(event: Event){
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue;
-  }
-
   OpenPopup(row: any){
     console.log(row)
     this.matdialog.open(PopupComponent, {width: '33%', height: '52%',
@@ -138,7 +133,15 @@ export class CompanyComponent implements AfterViewInit  {
     this.refreshPage();
   }
 
-  downloadAsTextFile() {
+  onEnter(value: string) : Company[] {
+    const filterValue = value;
+    this.dataSource.filter = filterValue;
+    return this._companies = this.dataSource.filteredData;
+  }
+
+  downloadAsTextFile(value: string) {
+    var data = this.onEnter(value);
+    this.dataSource = new MatTableDataSource<any>(data);
     const headers = [
       'Ime vlasnika',
       'Prezime vlasnika',

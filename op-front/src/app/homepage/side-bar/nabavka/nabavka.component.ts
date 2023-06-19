@@ -40,9 +40,10 @@ export class NabavkaComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  FilterChange(event: Event){
-    const filterValue = (event.target as HTMLInputElement).value;
+  onEnter(value: string) : Nabavka[] {
+    const filterValue = value;
     this.dataSource.filter = filterValue;
+    return this._nabavke = this.dataSource.filteredData;
   }
 
   load() {
@@ -54,7 +55,9 @@ export class NabavkaComponent implements AfterViewInit {
     });
   }
 
-  downloadAsTextFile() {
+  downloadAsTextFile(value: string) {
+    var data = this.onEnter(value);
+    this.dataSource = new MatTableDataSource<any>(data);
     const headers = [
       'ID',
       'Potraživač',
